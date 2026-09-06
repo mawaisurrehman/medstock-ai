@@ -1,0 +1,35 @@
+# --- Secrets: real values stay local; .env.example is the tracked template ---
+.env
+.env.local
+*.env.local
+
+# --- Python ---
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# --- Database (seeded at first run; -wal/-shm are SQLite sidecars) ---
+*.db
+*.db-wal
+*.db-shm
+
+# --- Node / frontend ---
+node_modules/
+dist/
+.vite/
+
+# --- Presentation / export artifacts (kept local, not published) ---
+*.pptx
+*.ppt
+*.pdf
+
+# --- Editors, OS, Office lock files ---
+.vscode/
+.idea/
+.qoder/
+.DS_Store
+Thumbs.db
+~$*

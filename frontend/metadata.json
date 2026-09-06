@@ -1,0 +1,6 @@
+{
+  "name": "MedStock AI",
+  "description": "Predict medicine demand, prevent stockouts, identify expiry risks, and make intelligent healthcare reorder decisions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
