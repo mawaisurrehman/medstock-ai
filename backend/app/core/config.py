@@ -35,6 +35,12 @@ class Settings(BaseSettings):
     qwen_base_url: str = ""
     qwen_model: str = "qwen-plus"
 
+    # Groq OpenAI-compatible endpoint. The default model must be one your
+    # Groq API key can see in its catalog — override GROQ_MODEL if not.
+    groq_api_key: str = ""
+    groq_base_url: str = "https://api.groq.com/openai/v1"
+    groq_model: str = "llama-3.3-70b-versatile"
+
     # Upload
     upload_max_size_mb: int = 20
 

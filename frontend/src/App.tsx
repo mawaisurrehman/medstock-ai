@@ -17,6 +17,15 @@ import { AssistantPage } from './pages/AssistantPage';
 import { AnalyticsPage } from './pages/AnalyticsPage';
 import { ReportsPage } from './pages/ReportsPage';
 import { SettingsPage } from './pages/SettingsPage';
+import { getAuthToken } from './api/client';
+
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const token = getAuthToken();
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
+  return <>{children}</>;
+}
 
 export default function App() {
   return (
@@ -27,7 +36,7 @@ export default function App() {
           <Route path="/login" element={<LoginPage />} />
 
           {/* Authenticated Dashboard Shell */}
-          <Route path="/" element={<DashboardLayout />}>
+          <Route path="/" element={<RequireAuth><DashboardLayout /></RequireAuth>}>
             <Route index element={<Navigate to="/dashboard" replace />} />
             <Route path="dashboard" element={<DashboardPage />} />
             <Route path="inventory" element={<InventoryPage />} />

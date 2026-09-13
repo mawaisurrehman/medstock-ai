@@ -61,10 +61,22 @@ def _generate_response(query: str, context: dict, is_urdu: bool) -> AIMessage:
 @router.post("/chat", response_model=AIMessage)
 def chat(body: ChatRequest, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
     context = _build_context(db, body.message)
+
+    # Prefer Groq when configured, because it is an OpenAI-compatible endpoint
+    # with fast inference and a Groq-supported chat model.
+    if settings.groq_api_key and settings.groq_base_url:
+        try:
+            from app.ai.groq_client import generate_response
+            return generate_response(body.message, context, body.language == "ur")
+        except Exception:
+            pass
+
+    # Then fall back to existing Qwen/OpenAI-compatible client if configured.
     if settings.qwen_api_key and settings.qwen_base_url:
         try:
             from app.ai.qwen_client import generate_response
             return generate_response(body.message, context, body.language == "ur")
         except Exception:
             pass
+
     return _generate_response(body.message, context, body.language == "ur")
