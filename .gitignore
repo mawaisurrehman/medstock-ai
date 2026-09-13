@@ -21,6 +21,10 @@ node_modules/
 dist/
 .vite/
 
+# --- Docker build artifact: the Dockerfile copies frontend/dist here at
+# build time; never a source file, and stale copies confuse local runs. ---
+backend/static/
+
 # --- Presentation / export artifacts (kept local, not published) ---
 *.pptx
 *.ppt
