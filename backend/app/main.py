@@ -118,30 +118,6 @@ def health_check():
     return {"status": "healthy", "database": "connected", "version": "1.0.0"}
 
 
-# Serve the built frontend from the same origin as the API (Docker/Hugging
-# Face deployment only — the static/ directory doesn't exist in local dev,
-# where the frontend runs on its own Vite dev server instead).
-_static_dir = Path(__file__).resolve().parent.parent / "static"
-if _static_dir.is_dir():
-    from fastapi.staticfiles import StaticFiles
-    from fastapi.responses import FileResponse
-
-    app.mount("/assets", StaticFiles(directory=_static_dir / "assets"), name="assets")
-
-    @app.get("/{full_path:path}", include_in_schema=False)
-    def serve_spa(full_path: str):
-        """Any path not matched by an API route above falls through to here.
-
-        Serve the requested file if it exists (favicons, etc. sit at the
-        static root); otherwise return index.html so React Router can handle
-        client-side routes like /dashboard or /inventory/123.
-        """
-        candidate = _static_dir / full_path
-        if full_path and candidate.is_file():
-            return FileResponse(candidate)
-        return FileResponse(_static_dir / "index.html")
-
-
 if __name__ == "__main__":
     import os
     import uvicorn

@@ -1,13 +1,3 @@
----
-title: MedStock AI
-emoji: 💊
-colorFrom: teal
-colorTo: blue
-sdk: docker
-app_port: 7860
-pinned: false
----
-
 # MedStock AI
 
 MedStock AI is a full-stack inventory intelligence and supply planning application for healthcare facilities. It combines an AI-assisted FastAPI backend with a Vite + React + TypeScript frontend for medicine inventory management, forecasting, anomaly detection, stockout alerts, supplier recommendations, and reporting.
